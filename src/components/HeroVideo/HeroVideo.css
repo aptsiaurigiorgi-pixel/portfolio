@@ -1,0 +1,152 @@
+/* Hero Video Container */
+.hero-video-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  background: var(--bg-primary);
+}
+
+/* Video Element */
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.hero-video-container.loaded .hero-video {
+  opacity: 1;
+}
+
+/* Dark Overlay for Text Readability (20-30% opacity as specified) */
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.4) 0%,
+    rgba(10, 10, 10, 0.25) 50%,
+    rgba(10, 10, 10, 0.5) 100%
+  );
+  z-index: 1;
+}
+
+/* Loading State */
+.hero-video-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  z-index: 2;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(245, 245, 240, 0.1);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Play/Pause Control */
+.hero-video-control {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(245, 245, 240, 0.2);
+  border-radius: 50%;
+  color: var(--text-primary);
+  cursor: pointer;
+  z-index: 3;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.hero-video-control:hover {
+  background: rgba(184, 160, 112, 0.2);
+  border-color: var(--accent);
+  transform: scale(1.1);
+}
+
+.hero-video-control:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Fallback */
+.hero-video-container.reduced-motion {
+  background: var(--bg-primary);
+}
+
+.hero-video-fallback {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(80%) contrast(1.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-video-control {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-video-control svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Slightly stronger overlay on mobile for better readability */
+  .hero-video-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(10, 10, 10, 0.5) 0%,
+      rgba(10, 10, 10, 0.35) 50%,
+      rgba(10, 10, 10, 0.6) 100%
+    );
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .hero-video-overlay {
+    background: rgba(10, 10, 10, 0.7);
+  }
+}
+
+/* Print styles - hide video */
+@media print {
+  .hero-video-container {
+    display: none;
+  }
+}

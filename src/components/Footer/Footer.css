@@ -1,0 +1,351 @@
+.footer {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.footer-background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  /* Color treatment: desaturate to 10-20%, boost contrast for monochrome aesthetic */
+  filter: grayscale(85%) contrast(1.1) brightness(0.9);
+  transition: filter 0.5s ease;
+}
+.tsiko {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+/* Subtle grain overlay for editorial feel */
+.footer-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.footer-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.85) 0%,
+    rgba(10, 10, 10, 0.7) 50%,
+    rgba(10, 10, 10, 0.9) 100%
+  );
+}
+
+.footer-container {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Top Bar */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(245, 245, 240, 0.1);
+}
+
+.footer-name,
+.footer-copyright {
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+/* Main Content */
+.footer-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 0;
+}
+
+/* Header - Come Say Hello */
+.footer-header {
+  margin-bottom: 60px;
+}
+
+.footer-header-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.header-come {
+  font-family: var(--font-primary);
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.header-say {
+  font-family: var(--font-accent);
+  font-size: clamp(36px, 8vw, 90px);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.header-hello {
+  font-family: var(--font-primary);
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.footer-header-georgian {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.georgian-text-hello {
+  font-family: var(--font-accent);
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  font-weight: 500;
+}
+
+/* Email CTA */
+.footer-email {
+  margin-bottom: 60px;
+}
+
+.email-link {
+  display: inline-block;
+  text-decoration: none;
+  padding: 20px 40px;
+  border: 1px solid rgba(245, 245, 240, 0.2);
+  transition: all 0.3s ease;
+}
+
+.email-link:hover {
+  border-color: var(--accent);
+  background: rgba(184, 160, 112, 0.05);
+}
+
+.email-text {
+  font-family: var(--font-primary);
+  font-size: clamp(14px, 2.5vw, 20px);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+}
+
+/* Location & Availability */
+.footer-meta {
+  display: flex;
+  gap: 60px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-label {
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+
+.meta-value {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.meta-value.available {
+  color: var(--accent);
+  position: relative;
+}
+
+.meta-value.available::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(245, 245, 240, 0.1);
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-link:hover {
+  color: var(--accent);
+}
+
+.footer-back-to-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.footer-back-to-top:hover {
+  color: var(--accent);
+}
+
+.back-to-top-arrow {
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 30px 24px;
+  }
+
+  .footer-top {
+    padding-bottom: 20px;
+  }
+
+  .footer-content {
+    padding: 40px 0;
+  }
+
+  .footer-header {
+    margin-bottom: 40px;
+  }
+
+  .footer-header-main {
+    gap: 12px;
+  }
+
+  .footer-email {
+    margin-bottom: 40px;
+  }
+
+  .email-link {
+    padding: 16px 28px;
+  }
+
+  .footer-meta {
+    gap: 40px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+    padding-top: 20px;
+  }
+
+  .footer-socials {
+    justify-content: center;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-header-main {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-say {
+    font-size: clamp(28px, 7vw, 48px);
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
