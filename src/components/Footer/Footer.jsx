@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { SectionReveal } from "../ScrollReveal/ScrollReveal";
 import "./Footer.css";
 
 const Footer = () => {
@@ -23,7 +24,20 @@ const Footer = () => {
   ];
 
   return (
-    <footer id="contact" className="footer">
+    <SectionReveal
+      id="contact"
+      className="footer"
+      as="footer"
+      blurStart={25}
+      blurEnd={0}
+      opacityStart={0.4}
+      opacityEnd={1}
+      brightnessStart={0.5}
+      brightnessEnd={1}
+      start="top 90%"
+      end="top 50%"
+      fogGradient={true}
+    >
       {/* Background Image */}
       <div
         className="footer-background"
@@ -146,7 +160,7 @@ const Footer = () => {
           </motion.button>
         </div>
       </div>
-    </footer>
+    </SectionReveal>
   );
 };
 

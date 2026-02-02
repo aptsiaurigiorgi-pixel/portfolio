@@ -188,6 +188,33 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* Coming Soon Styles */
+.project-link-disabled {
+  cursor: default;
+}
+
+.project-link-disabled .project-image {
+  filter: grayscale(100%) contrast(0.9);
+  opacity: 0.7;
+}
+
+.project-overlay-coming-soon {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.project-coming-soon-badge {
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--text-primary);
+  padding: 16px 32px;
+  border: 1px solid var(--text-primary);
+  background: rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+}
+
 /* Footer Note */
 .projects-footer-note {
   text-align: center;

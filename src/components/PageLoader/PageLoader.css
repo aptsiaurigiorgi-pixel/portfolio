@@ -1,0 +1,363 @@
+/* ============================================
+   PAGE LOADER - Japanese Inspired Animation
+   ============================================ */
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary, #0a0a0a);
+  overflow: hidden;
+}
+
+.page-loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================
+   JAPANESE CHARACTERS
+   ============================================ */
+
+.japanese-chars {
+  display: flex;
+  gap: 0.5rem;
+  perspective: 1000px;
+}
+
+.japanese-char {
+  font-family: "Noto Serif SC", "Noto Sans JP", serif;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 600;
+  color: var(--text-primary, #f5f5f0);
+  display: inline-block;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  text-shadow:
+    0 0 40px rgba(184, 160, 112, 0.3),
+    0 0 80px rgba(184, 160, 112, 0.1);
+}
+
+/* Character glow animation */
+@keyframes charGlow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 40px rgba(184, 160, 112, 0.3),
+      0 0 80px rgba(184, 160, 112, 0.1);
+  }
+  50% {
+    text-shadow:
+      0 0 60px rgba(184, 160, 112, 0.5),
+      0 0 120px rgba(184, 160, 112, 0.2),
+      0 0 160px rgba(184, 160, 112, 0.1);
+  }
+}
+
+.japanese-char {
+  animation: charGlow 3s ease-in-out infinite;
+}
+
+/* Stagger animation delays for each character */
+.japanese-char:nth-child(1) {
+  animation-delay: 0s;
+}
+.japanese-char:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.japanese-char:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.japanese-char:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.japanese-char:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+/* ============================================
+   ROMAJI TEXT
+   ============================================ */
+
+.romaji-text {
+  display: flex;
+  gap: 0.3rem;
+  font-family: var(--font-primary, "Inter", sans-serif);
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.5em;
+  color: var(--text-muted, #888888);
+  overflow: hidden;
+}
+
+.romaji-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: romajiReveal 0.6s ease forwards;
+}
+
+@keyframes romajiReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   LOADER PROGRESS BAR
+   ============================================ */
+
+.loader-progress {
+  width: 120px;
+  height: 1px;
+  background: rgba(245, 245, 240, 0.1);
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.loader-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    var(--accent, #b8a070),
+    var(--accent-light, #c9b080)
+  );
+  animation: loadProgress 2.5s ease-in-out forwards;
+}
+
+@keyframes loadProgress {
+  0% {
+    width: 0%;
+    opacity: 1;
+  }
+  50% {
+    width: 60%;
+    opacity: 1;
+  }
+  80% {
+    width: 90%;
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   DECORATIVE ELEMENTS
+   ============================================ */
+
+.loader-decoration {
+  position: absolute;
+  border: 1px solid rgba(184, 160, 112, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.loader-decoration--1 {
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: rotateSlow 20s linear infinite;
+}
+
+.loader-decoration--2 {
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-style: dashed;
+  animation: rotateSlow 30s linear infinite reverse;
+}
+
+.loader-decoration--3 {
+  width: 700px;
+  height: 700px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-color: rgba(184, 160, 112, 0.05);
+  animation: rotateSlow 40s linear infinite;
+}
+
+@keyframes rotateSlow {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Decorative corners */
+.page-loader::before,
+.page-loader::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgba(184, 160, 112, 0.2);
+  pointer-events: none;
+}
+
+.page-loader::before {
+  top: 40px;
+  left: 40px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.page-loader::after {
+  bottom: 40px;
+  right: 40px;
+  border-left: none;
+  border-top: none;
+}
+
+/* ============================================
+   BACKGROUND EFFECTS
+   ============================================ */
+
+.page-loader-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at 30% 20%,
+      rgba(184, 160, 112, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 70% 80%,
+      rgba(184, 160, 112, 0.02) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+/* Fog overlay */
+.page-loader-fog {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(10, 10, 10, 0.5) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  animation: fogMove 8s ease-in-out infinite;
+}
+
+@keyframes fogMove {
+  0%,
+  100% {
+    transform: translateY(-10%);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(10%);
+    opacity: 0.8;
+  }
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .japanese-char {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .romaji-text {
+    letter-spacing: 0.3em;
+    font-size: 0.7rem;
+  }
+
+  .loader-decoration--1 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .loader-decoration--2 {
+    width: 350px;
+    height: 350px;
+  }
+
+  .loader-decoration--3 {
+    width: 500px;
+    height: 500px;
+  }
+
+  .page-loader::before,
+  .page-loader::after {
+    width: 40px;
+    height: 40px;
+  }
+
+  .page-loader::before {
+    top: 20px;
+    left: 20px;
+  }
+
+  .page-loader::after {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY - Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .japanese-char {
+    animation: none;
+    text-shadow: none;
+  }
+
+  .romaji-char {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .loader-bar {
+    animation: none;
+    width: 100%;
+    opacity: 0;
+  }
+
+  .loader-decoration {
+    animation: none;
+  }
+
+  .page-loader-fog {
+    animation: none;
+  }
+}
+
+/* Hide loader when not loading */
+.page-loader[hidden],
+.page-loader[data-hidden="true"] {
+  display: none;
+}

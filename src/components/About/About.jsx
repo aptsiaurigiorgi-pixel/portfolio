@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { SectionReveal } from "../ScrollReveal/ScrollReveal";
 import "./About.css";
 
 const About = () => {
@@ -18,8 +19,20 @@ const About = () => {
   );
 
   return (
-    <section id="info" className="about section-dark" ref={containerRef}>
-      <div className="about-container">
+    <SectionReveal
+      id="info"
+      className="about section-dark"
+      blurStart={25}
+      blurEnd={0}
+      opacityStart={0.4}
+      opacityEnd={1}
+      brightnessStart={0.5}
+      brightnessEnd={1}
+      start="top 90%"
+      end="top 40%"
+      fogGradient={true}
+    >
+      <div className="about-container" ref={containerRef}>
         {/* Section Header */}
         <motion.div
           className="about-header"
@@ -186,7 +199,7 @@ const About = () => {
           </div>
         </motion.div>
       </div>
-    </section>
+    </SectionReveal>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { SectionReveal } from "../ScrollReveal/ScrollReveal";
 import "./Skills.css";
 
 const skills = [
@@ -41,7 +42,19 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="skills section-dark">
+    <SectionReveal
+      id="skills"
+      className="skills section-dark"
+      blurStart={20}
+      blurEnd={0}
+      opacityStart={0.5}
+      opacityEnd={1}
+      brightnessStart={0.6}
+      brightnessEnd={1}
+      start="top 85%"
+      end="top 40%"
+      fogGradient={true}
+    >
       <div className="skills-container">
         {/* Section Header with Lines */}
         <motion.div
@@ -138,7 +151,7 @@ const Skills = () => {
           <span className="note-text">[ALWAYS LEARNING NEW TECHNOLOGIES]</span>
         </motion.div>
       </div>
-    </section>
+    </SectionReveal>
   );
 };
 

@@ -4,16 +4,19 @@ import "./PageLoader.css";
 
 /**
  * PageLoader Component
- * Displays Japanese characters animation before revealing the website
+ * Elegant Japanese-inspired loading animation
+ * Characters emerge from fog/darkness like the scroll reveal effect
  */
 const PageLoader = ({ onComplete }) => {
   const [isLoading, setIsLoading] = useState(true);
   const loaderRef = useRef(null);
   const charsRef = useRef([]);
+  const contentRef = useRef(null);
+  const overlayRef = useRef(null);
 
-  // Japanese characters to animate
+  // Japanese characters: ジョルジア (Jorjia/Georgia)
   const japaneseChars = ["ジ", "ョ", "ル", "ジ", "ア"];
-  const romaji = "JORJIA"; // Transliteration
+  const romaji = "GEORGIA";
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -24,76 +27,94 @@ const PageLoader = ({ onComplete }) => {
         },
       });
 
-      // Initial setup - hide all chars
+      // Initial setup - characters hidden in fog (blur + darkness)
       gsap.set(charsRef.current, {
         opacity: 0,
-        y: 50,
-        rotateX: -90,
-        scale: 0.5,
+        y: 80,
+        filter: "blur(20px)",
+        scale: 0.8,
       });
 
-      // Set loader visible
+      gsap.set(".romaji-char", {
+        opacity: 0,
+        y: 20,
+      });
+
+      // Set loader visible with fog overlay
       gsap.set(loaderRef.current, {
         display: "flex",
         opacity: 1,
       });
 
-      // Animate each character in
+      gsap.set(overlayRef.current, {
+        opacity: 1,
+      });
+
+      // PHASE 1: Characters emerge from fog (blur clears)
       tl.to(charsRef.current, {
         opacity: 1,
         y: 0,
-        rotateX: 0,
+        filter: "blur(0px)",
         scale: 1,
-        duration: 0.6,
-        stagger: 0.12,
-        ease: "back.out(1.7)",
+        duration: 1.2,
+        stagger: 0.1,
+        ease: "power3.out",
       });
 
-      // Hold for a moment
-      tl.to({}, { duration: 0.8 });
+      // PHASE 2: Romaji text reveals
+      tl.to(
+        ".romaji-char",
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.05,
+          ease: "power2.out",
+        },
+        "-=0.6",
+      );
 
-      // Subtle pulse effect
-      tl.to(charsRef.current, {
-        scale: 1.05,
-        duration: 0.3,
-        stagger: 0.05,
-        yoyo: true,
-        repeat: 1,
-        ease: "power2.inOut",
-      });
+      // PHASE 3: Hold with subtle breathing effect
+      tl.to(
+        charsRef.current,
+        {
+          scale: 1.02,
+          duration: 1.5,
+          yoyo: true,
+          repeat: 1,
+          ease: "sine.inOut",
+        },
+        "+=0.3",
+      );
 
-      // Hold again
-      tl.to({}, { duration: 0.4 });
+      // PHASE 4: Exit - fade to fog/darkness
+      tl.to(
+        contentRef.current,
+        {
+          opacity: 0,
+          filter: "blur(15px)",
+          scale: 0.95,
+          duration: 0.8,
+          ease: "power2.in",
+        },
+        "+=0.5",
+      );
 
-      // Exit animation - characters scatter
-      tl.to(charsRef.current, {
-        opacity: 0,
-        y: -30,
-        rotateX: 45,
-        scale: 1.2,
-        duration: 0.5,
-        stagger: 0.08,
-        ease: "power2.in",
-      });
-
-      // Fade out loader
-      tl.to(loaderRef.current, {
-        opacity: 0,
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
-
-      // Slide up loader
-      tl.fromTo(
+      // PHASE 5: Loader slides up revealing content
+      tl.to(
         loaderRef.current,
-        { y: 0 },
         {
           y: "-100%",
-          duration: 0.8,
+          duration: 1,
           ease: "power3.inOut",
         },
-        "-=0.4",
+        "-=0.3",
       );
+
+      // Ensure loader is hidden
+      tl.set(loaderRef.current, {
+        display: "none",
+      });
     }, loaderRef);
 
     return () => ctx.revert();
@@ -103,7 +124,12 @@ const PageLoader = ({ onComplete }) => {
 
   return (
     <div ref={loaderRef} className="page-loader">
-      <div className="page-loader-content">
+      {/* Background effects */}
+      <div className="page-loader-bg" />
+      <div ref={overlayRef} className="page-loader-fog" />
+
+      {/* Main content */}
+      <div ref={contentRef} className="page-loader-content">
         <div className="japanese-chars">
           {japaneseChars.map((char, index) => (
             <span
@@ -117,17 +143,15 @@ const PageLoader = ({ onComplete }) => {
             </span>
           ))}
         </div>
+
         <div className="romaji-text">
           {romaji.split("").map((char, index) => (
-            <span
-              key={index}
-              className="romaji-char"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
+            <span key={index} className="romaji-char">
               {char}
             </span>
           ))}
         </div>
+
         <div className="loader-progress">
           <div className="loader-bar" />
         </div>

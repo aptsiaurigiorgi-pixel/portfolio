@@ -1,49 +1,36 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { SectionReveal } from "../ScrollReveal/ScrollReveal";
 import "./Projects.css";
 
 const projects = [
   {
     id: 1,
-    title: "Animated Landing Page",
+    title: "SPACETOURISM",
     description:
-      "Smooth scroll animations and interactive hero section for a creative agency",
-    image: "/assets/project-1.jpg",
-    tags: ["React", "Framer Motion", "GSAP"],
-    link: "#",
+      "An immersive multi-page website exploring space travel destinations, crew members, and technology. Built with modern frontend practices and responsive design.",
+    image: "/assets/SpaceTourismIMG.jpg",
+    tags: ["React", "Responsive", "Multi-page"],
+    link: "https://spacetourism-gules.vercel.app/",
   },
   {
     id: 2,
-    title: "Task Manager App",
-    description: "React + TypeScript todo app with drag & drop and dark mode",
-    image: "/assets/project-2.jpg",
-    tags: ["React", "TypeScript", "DnD"],
-    link: "#",
+    title: "AKROFURNITURE",
+    description:
+      "A modern furniture e-commerce platform featuring intuitive navigation, product catalog, and seamless user experience.",
+    image: "/assets/AkroFurnitureIMG.jpg",
+    tags: ["React", "E-commerce", "Responsive"],
+    link: "https://akro-furniture.vercel.app",
   },
   {
     id: 3,
     title: "3D Product Showcase",
-    description: "Interactive 3D model viewer using React Three Fiber basics",
+    description:
+      "Interactive 3D model viewer using React Three Fiber basics. Coming soon.",
     image: "/assets/project-3.jpg",
     tags: ["React Three Fiber", "Three.js", "3D"],
-    link: "#",
-  },
-  {
-    id: 4,
-    title: "Personal Blog Starter",
-    description: "Angular.js MDX blog with syntax highlighting and SEO",
-    image: "/assets/project-4.jpg",
-    tags: ["Angular.js", "MDX", "SEO"],
-    link: "#",
-  },
-  {
-    id: 5,
-    title: "E-commerce UI Clone",
-    description:
-      "Responsive product grid + cart with Tailwind & Framer Motion hovers",
-    image: "/assets/about-feature.jpg",
-    tags: ["Tailwind", "Framer Motion", "Cart"],
-    link: "#",
+    link: null,
+    comingSoon: true,
   },
 ];
 
@@ -84,7 +71,19 @@ const Projects = () => {
   };
 
   return (
-    <section id="work" className="projects section-light">
+    <SectionReveal
+      id="work"
+      className="projects section-light"
+      blurStart={20}
+      blurEnd={0}
+      opacityStart={0.5}
+      opacityEnd={1}
+      brightnessStart={0.6}
+      brightnessEnd={1}
+      start="top 85%"
+      end="top 40%"
+      fogGradient={true}
+    >
       <div className="projects-container">
         {/* Section Header */}
         <motion.div
@@ -116,48 +115,75 @@ const Projects = () => {
           {projects.map((project, index) => (
             <motion.article
               key={project.id}
-              className={`project-card ${index === 0 ? "project-card-large" : ""}`}
+              className={`project-card ${index === 0 ? "project-card-large" : ""} ${project.comingSoon ? "project-card-coming-soon" : ""}`}
               variants={itemVariants}
             >
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-link cursor-hover"
-                data-cursor-text="VIEW"
-              >
-                <div className="project-image-wrapper">
-                  <motion.div
-                    className="project-image"
-                    style={{ backgroundImage: `url(${project.image})` }}
-                    whileHover={{ scale: 1.08 }}
-                    transition={{
-                      duration: 0.6,
-                      ease: [0.25, 0.46, 0.45, 0.94],
-                    }}
-                  />
-                  <div className="project-overlay">
-                    <motion.span
-                      className="project-view-btn"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileHover={{ opacity: 1, y: 0 }}
-                    >
-                      VIEW PROJECT
-                    </motion.span>
+              {project.link ? (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-link cursor-hover"
+                  data-cursor-text="VIEW"
+                >
+                  <div className="project-image-wrapper">
+                    <motion.div
+                      className="project-image"
+                      style={{ backgroundImage: `url(${project.image})` }}
+                      whileHover={{ scale: 1.08 }}
+                      transition={{
+                        duration: 0.6,
+                        ease: [0.25, 0.46, 0.45, 0.94],
+                      }}
+                    />
+                    <div className="project-overlay">
+                      <motion.span
+                        className="project-view-btn"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileHover={{ opacity: 1, y: 0 }}
+                      >
+                        VIEW PROJECT
+                      </motion.span>
+                    </div>
                   </div>
-                </div>
-                <div className="project-info">
-                  <h3 className="project-title">{project.title}</h3>
-                  <p className="project-description">{project.description}</p>
-                  <div className="project-tags">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="project-tag">
-                        {tag}
+                  <div className="project-info">
+                    <h3 className="project-title">{project.title}</h3>
+                    <p className="project-description">{project.description}</p>
+                    <div className="project-tags">
+                      {project.tags.map((tag, tagIndex) => (
+                        <span key={tagIndex} className="project-tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </a>
+              ) : (
+                <div className="project-link project-link-disabled">
+                  <div className="project-image-wrapper">
+                    <div
+                      className="project-image"
+                      style={{ backgroundImage: `url(${project.image})` }}
+                    />
+                    <div className="project-overlay project-overlay-coming-soon">
+                      <span className="project-coming-soon-badge">
+                        COMING SOON
                       </span>
-                    ))}
+                    </div>
+                  </div>
+                  <div className="project-info">
+                    <h3 className="project-title">{project.title}</h3>
+                    <p className="project-description">{project.description}</p>
+                    <div className="project-tags">
+                      {project.tags.map((tag, tagIndex) => (
+                        <span key={tagIndex} className="project-tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </a>
+              )}
             </motion.article>
           ))}
         </motion.div>
@@ -173,7 +199,7 @@ const Projects = () => {
           <span className="note-text">[MORE PROJECTS COMING SOON]</span>
         </motion.div>
       </div>
-    </section>
+    </SectionReveal>
   );
 };
 

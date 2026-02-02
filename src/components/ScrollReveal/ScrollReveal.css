@@ -1,94 +1,284 @@
-/* ScrollReveal Component Styles */
+/* ============================================
+   SCROLL REVEAL SYSTEM - Fog/Darkness Emergence
+   ============================================ */
 
+/* Base Reveal Container */
 .scroll-reveal {
   position: relative;
   will-change: filter, opacity;
-  transform: translateZ(0); /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
-.scroll-reveal-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.4) 0%,
-    rgba(0, 0, 0, 0.2) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 1;
-  border-radius: inherit;
-}
-
-.scroll-reveal-content {
-  position: relative;
-  z-index: 0;
-}
-
-/* Child elements for staggered reveals */
-.reveal-child {
-  will-change: transform, opacity;
-}
-
-/* Variant: Section-wide reveal */
+/* Section Reveal - Full sections */
 .scroll-reveal-section {
+  position: relative;
+  will-change: filter, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   min-height: 50vh;
 }
 
-/* Variant: Card reveal */
-.scroll-reveal-card {
-  border-radius: 8px;
-  overflow: hidden;
+/* Content Wrapper */
+.scroll-reveal-content-wrapper {
+  position: relative;
+  will-change: filter, opacity;
 }
 
-/* Variant: Image reveal */
+/* Content Container */
+.scroll-reveal-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   OVERLAY EFFECTS
+   ============================================ */
+
+/* Base Overlay */
+.scroll-reveal-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+  transition: opacity 0.1s linear;
+  will-change: opacity;
+}
+
+/* Fog Gradient - Bottom to top emergence */
+.scroll-reveal-fog .scroll-reveal-overlay,
+.scroll-reveal-overlay.scroll-reveal-fog {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.4) 30%,
+    rgba(0, 0, 0, 0.2) 60%,
+    transparent 100%
+  );
+}
+
+/* Vignette Effect - Radial darkness */
+.scroll-reveal-vignette .scroll-reveal-overlay,
+.scroll-reveal-overlay.vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(0, 0, 0, 0.4) 70%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+/* Deep Fog - Heavy darkness */
+.scroll-reveal-deep-fog .scroll-reveal-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.5) 40%,
+    rgba(0, 0, 0, 0.2) 70%,
+    transparent 100%
+  );
+}
+
+/* ============================================
+   IMAGE REVEAL
+   ============================================ */
+
 .scroll-reveal-image {
+  position: relative;
   overflow: hidden;
+  border-radius: 8px;
+  will-change: transform;
 }
 
 .scroll-reveal-image img {
-  transition: transform 0.6s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: filter, transform;
+  transform: translateZ(0);
 }
 
-.scroll-reveal-image:hover img {
-  transform: scale(1.05);
-}
-
-/* Performance optimization for mobile */
-@media (prefers-reduced-motion: reduce) {
-  .scroll-reveal {
-    filter: none !important;
-    opacity: 1 !important;
-  }
-
-  .scroll-reveal-overlay {
-    display: none;
-  }
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .scroll-reveal {
-    /* Reduce blur on mobile for better performance */
-    --mobile-blur: max(8px, var(--blur, 15px));
-  }
-}
-
-/* Vignette effect variant */
-.scroll-reveal-vignette .scroll-reveal-overlay {
+.scroll-reveal-image-overlay {
+  position: absolute;
+  inset: 0;
   background: radial-gradient(
     ellipse at center,
-    transparent 40%,
+    transparent 20%,
     rgba(0, 0, 0, 0.5) 100%
   );
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.1s linear;
+  will-change: opacity;
 }
 
-/* Fog-like bottom gradient */
-.scroll-reveal-fog .scroll-reveal-overlay {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.3) 60%,
-    rgba(0, 0, 0, 0.6) 100%
-  );
+/* ============================================
+   TEXT REVEAL
+   ============================================ */
+
+.scroll-reveal-text {
+  display: inline;
+  will-change: transform, opacity, filter;
+}
+
+.text-reveal-char,
+.text-reveal-word {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+}
+
+/* ============================================
+   CHILD ELEMENT STAGGER
+   ============================================ */
+
+.reveal-child {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* ============================================
+   VARIANTS
+   ============================================ */
+
+/* Card variant */
+.scroll-reveal-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Hero variant - More dramatic */
+.scroll-reveal-hero {
+  --blur-start: 30px;
+  --opacity-start: 0.3;
+}
+
+/* Subtle variant - Less blur */
+.scroll-reveal-subtle {
+  --blur-start: 10px;
+  --opacity-start: 0.8;
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* GPU Acceleration hints */
+.scroll-reveal,
+.scroll-reveal-section,
+.scroll-reveal-image,
+.scroll-reveal-content-wrapper,
+.text-reveal-char,
+.text-reveal-word,
+.reveal-child {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Contain paint for better performance */
+@supports (contain: paint) {
+  .scroll-reveal,
+  .scroll-reveal-section,
+  .scroll-reveal-image {
+    contain: paint;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY - Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal-section,
+  .scroll-reveal-content-wrapper {
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .scroll-reveal-overlay,
+  .scroll-reveal-image-overlay {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .scroll-reveal-image img {
+    filter: none !important;
+    transform: none !important;
+  }
+
+  .text-reveal-char,
+  .text-reveal-word,
+  .reveal-child {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Reduce blur intensity on mobile for performance */
+  .scroll-reveal,
+  .scroll-reveal-section {
+    --mobile-blur-factor: 0.6;
+  }
+
+  /* Simpler overlays on mobile */
+  .scroll-reveal-overlay,
+  .scroll-reveal-image-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.5) 0%,
+      transparent 100%
+    );
+  }
+
+  /* Disable complex vignette on mobile */
+  .scroll-reveal-vignette .scroll-reveal-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.4) 0%,
+      transparent 100%
+    );
+  }
+}
+
+/* Low-power mode detection */
+@media (prefers-reduced-transparency: reduce) {
+  .scroll-reveal-overlay,
+  .scroll-reveal-image-overlay {
+    opacity: 0 !important;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Disable reveal (utility) */
+.no-reveal {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.no-reveal .scroll-reveal-overlay {
+  display: none !important;
+}
+
+/* Faster reveal */
+.reveal-fast {
+  --reveal-duration: 0.5s;
+}
+
+/* Slower reveal */
+.reveal-slow {
+  --reveal-duration: 1.5s;
 }

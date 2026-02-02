@@ -5,7 +5,7 @@ import "./FeaturedProjects.css";
 const projects = [
   {
     id: 1,
-    title: "SPACE TOURISM",
+    title: "SPACETOURISM",
     category: "MULTI-PAGE WEBSITE",
     description:
       "An immersive multi-page website exploring space travel destinations, crew members, and technology. Built with modern frontend practices and responsive design.",
@@ -16,13 +16,13 @@ const projects = [
   },
   {
     id: 2,
-    title: "E-COMMERCE PLATFORM",
+    title: "AKROFURNITURE",
     category: "RESPONSIVE WEB APP",
     description:
-      "A modern e-commerce platform featuring intuitive navigation, product filtering, and seamless checkout experience. Focused on usability and clean UI.",
+      "A modern furniture e-commerce platform featuring intuitive navigation, product catalog, and seamless user experience. Focused on clean UI and responsive design.",
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=1000&fit=crop",
-    link: "#",
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=1000&fit=crop",
+    link: "https://akro-furniture.vercel.app",
     color: "#2d2d2d",
   },
 ];
