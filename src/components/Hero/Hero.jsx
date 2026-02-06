@@ -69,7 +69,7 @@ const Hero = () => {
                   transition={{ delay: 1.4, duration: 0.8 }}
                 >
                   <span className="georgian-bracket"></span>
-                  <span className="georgian-text-vertical">ジョルジ</span>
+
                   <span className="georgian-bracket"></span>
                 </motion.div>
               )}
