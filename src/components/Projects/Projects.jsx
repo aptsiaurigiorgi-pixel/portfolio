@@ -27,9 +27,7 @@ const projects = [
     title: "KOSHA DASHBOARD",
     description:
       "Analytics dashboard with data visualization, interactive charts, and a clean modular UI. Built with React and modern data viz patterns.",
-    gradient:
-      "linear-gradient(135deg, #2b3a55 0%, #4a5d7e 45%, #d4b483 100%)",
-    monogram: "K",
+    image: "/assets/KoshaDashboardIMG.jpg",
     tags: ["React", "Dashboard", "Data Viz"],
     link: "https://kosha-dashboard.vercel.app/",
   },
@@ -38,9 +36,7 @@ const projects = [
     title: "KOSHA",
     description:
       "Polished marketing site with smooth motion, refined typography, and a minimal modern aesthetic. Focused on performance and visual clarity.",
-    gradient:
-      "linear-gradient(135deg, #1f2a3a 0%, #6a7a9a 50%, #efece4 100%)",
-    monogram: "K",
+    image: "/assets/KoshaIMG.jpg",
     tags: ["React", "Marketing", "Motion"],
     link: "https://kosha-tau.vercel.app",
   },
