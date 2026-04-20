@@ -81,7 +81,7 @@ const Projects = () => {
   return (
     <SectionReveal
       id="work"
-      className="projects section-light"
+      className="projects section-dark"
       blurStart={20}
       blurEnd={0}
       opacityStart={0.5}

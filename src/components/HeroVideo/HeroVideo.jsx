@@ -6,12 +6,25 @@ const HeroVideo = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [skipVideo, setSkipVideo] = useState(false);
   const videoRef = useRef(null);
 
-  // Check for reduced motion preference
+  // Check for reduced motion preference + mobile/slow-connection skip
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mediaQuery.matches);
+
+    // Skip large video on small viewports or metered/slow networks
+    const isSmall = window.matchMedia("(max-width: 768px)").matches;
+    const conn =
+      navigator.connection ||
+      navigator.mozConnection ||
+      navigator.webkitConnection;
+    const slow =
+      conn &&
+      (conn.saveData ||
+        ["slow-2g", "2g", "3g"].includes(conn.effectiveType));
+    if (isSmall || slow) setSkipVideo(true);
 
     const handleChange = (e) => {
       setPrefersReducedMotion(e.matches);
@@ -42,10 +55,10 @@ const HeroVideo = () => {
     }
   };
 
-  // If user prefers reduced motion, show static fallback
-  if (prefersReducedMotion) {
+  // Reduced motion OR mobile/slow network — static fallback (no 51MB video)
+  if (prefersReducedMotion || skipVideo) {
     return (
-      <div className="hero-video-container reduced-motion">
+      <div className="hero-video-container reduced-motion loaded">
         <div
           className="hero-video-fallback"
           style={{
@@ -67,7 +80,10 @@ const HeroVideo = () => {
         muted
         loop
         playsInline
+        preload="auto"
+        disableRemotePlayback
         onLoadedData={handleLoadedData}
+        onCanPlay={handleLoadedData}
         poster="/assets/about-feature.jpg"
       >
         <source src="/assets/Horseyyy.mp4" type="video/mp4" />

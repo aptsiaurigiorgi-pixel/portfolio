@@ -56,8 +56,8 @@ const PageLoader = ({ onComplete }) => {
         y: 0,
         filter: "blur(0px)",
         scale: 1,
-        duration: 1.2,
-        stagger: 0.1,
+        duration: 0.6,
+        stagger: 0.05,
         ease: "power3.out",
       });
 
@@ -67,48 +67,35 @@ const PageLoader = ({ onComplete }) => {
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
-          stagger: 0.05,
+          duration: 0.35,
+          stagger: 0.03,
           ease: "power2.out",
         },
-        "-=0.6",
+        "-=0.35",
       );
 
-      // PHASE 3: Hold with subtle breathing effect
-      tl.to(
-        charsRef.current,
-        {
-          scale: 1.02,
-          duration: 1.5,
-          yoyo: true,
-          repeat: 1,
-          ease: "sine.inOut",
-        },
-        "+=0.3",
-      );
-
-      // PHASE 4: Exit - fade to fog/darkness
+      // PHASE 3: Exit - fade to fog/darkness
       tl.to(
         contentRef.current,
         {
           opacity: 0,
-          filter: "blur(15px)",
-          scale: 0.95,
-          duration: 0.8,
+          filter: "blur(10px)",
+          scale: 0.97,
+          duration: 0.4,
           ease: "power2.in",
         },
-        "+=0.5",
+        "+=0.25",
       );
 
-      // PHASE 5: Loader slides up revealing content
+      // PHASE 4: Loader slides up revealing content
       tl.to(
         loaderRef.current,
         {
           y: "-100%",
-          duration: 1,
+          duration: 0.6,
           ease: "power3.inOut",
         },
-        "-=0.3",
+        "-=0.2",
       );
 
       // Ensure loader is hidden

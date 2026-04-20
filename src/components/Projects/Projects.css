@@ -1,7 +1,7 @@
 .projects {
   padding: 120px 0;
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .projects-container {
@@ -28,7 +28,7 @@
   font-size: clamp(36px, 8vw, 72px);
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   line-height: 1;
 }
 
@@ -146,28 +146,69 @@
 .project-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 14, 0.75) 0%,
+    rgba(212, 180, 131, 0.25) 100%
+  );
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition:
+    opacity 0.5s var(--ease-smooth, cubic-bezier(0.25, 0.46, 0.45, 0.94)),
+    backdrop-filter 0.5s ease;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 
 .project-card:hover .project-overlay {
   opacity: 1;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .project-view-btn {
   font-family: var(--font-primary);
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   color: var(--text-primary);
-  padding: 16px 32px;
-  border: 1px solid var(--text-primary);
-  background: transparent;
+  padding: 18px 36px;
+  border: 1px solid var(--accent);
+  background: rgba(10, 10, 14, 0.5);
   text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(10px);
+  opacity: 0;
+  transition:
+    transform 0.5s var(--ease-smooth, cubic-bezier(0.25, 0.46, 0.45, 0.94)),
+    opacity 0.4s ease,
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.project-view-btn::after {
+  content: " →";
+  display: inline-block;
+  margin-left: 6px;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-view-btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.project-card:hover .project-view-btn:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+.project-card:hover .project-view-btn:hover::after {
+  transform: translateX(4px);
 }
 
 /* Project Info */
@@ -181,7 +222,7 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   margin-bottom: 12px;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .project-description {
@@ -206,9 +247,9 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 6px 12px;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(250, 247, 240, 0.05);
   color: var(--text-muted);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(250, 247, 240, 0.1);
 }
 
 /* Coming Soon Styles */
@@ -242,7 +283,7 @@
 .projects-footer-note {
   text-align: center;
   padding-top: 40px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(250, 247, 240, 0.08);
 }
 
 .note-text {

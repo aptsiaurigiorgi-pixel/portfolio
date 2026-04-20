@@ -136,7 +136,7 @@
     var(--accent, #b8a070),
     var(--accent-light, #c9b080)
   );
-  animation: loadProgress 2.5s ease-in-out forwards;
+  animation: loadProgress 1.2s ease-in-out forwards;
 }
 
 @keyframes loadProgress {

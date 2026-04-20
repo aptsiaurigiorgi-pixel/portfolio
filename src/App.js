@@ -6,6 +6,7 @@ import About from "./components/About/About";
 import Skills from "./components/Skills/Skills";
 import Footer from "./components/Footer/Footer";
 import PageLoader from "./components/PageLoader/PageLoader";
+import { Analytics } from "@vercel/analytics/react";
 import "./App.css";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Skills />
       </main>
       <Footer />
+      <Analytics />
     </div>
   );
 }
