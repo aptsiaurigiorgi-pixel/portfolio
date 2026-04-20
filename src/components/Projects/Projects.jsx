@@ -24,13 +24,25 @@ const projects = [
   },
   {
     id: 3,
-    title: "3D Product Showcase",
+    title: "KOSHA DASHBOARD",
     description:
-      "Interactive 3D model viewer using React Three Fiber basics. Coming soon.",
-    image: "/assets/project-3.jpg",
-    tags: ["React Three Fiber", "Three.js", "3D"],
-    link: null,
-    comingSoon: true,
+      "Analytics dashboard with data visualization, interactive charts, and a clean modular UI. Built with React and modern data viz patterns.",
+    gradient:
+      "linear-gradient(135deg, #2b3a55 0%, #4a5d7e 45%, #d4b483 100%)",
+    monogram: "K",
+    tags: ["React", "Dashboard", "Data Viz"],
+    link: "https://kosha-dashboard.vercel.app/",
+  },
+  {
+    id: 4,
+    title: "KOSHA",
+    description:
+      "Polished marketing site with smooth motion, refined typography, and a minimal modern aesthetic. Focused on performance and visual clarity.",
+    gradient:
+      "linear-gradient(135deg, #1f2a3a 0%, #6a7a9a 50%, #efece4 100%)",
+    monogram: "K",
+    tags: ["React", "Marketing", "Motion"],
+    link: "https://kosha-tau.vercel.app",
   },
 ];
 
@@ -112,80 +124,105 @@ const Projects = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
         >
-          {projects.map((project, index) => (
-            <motion.article
-              key={project.id}
-              className={`project-card ${index === 0 ? "project-card-large" : ""} ${project.comingSoon ? "project-card-coming-soon" : ""}`}
-              variants={itemVariants}
-            >
-              {project.link ? (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-link cursor-hover"
-                  data-cursor-text="VIEW"
-                >
-                  <div className="project-image-wrapper">
-                    <motion.div
-                      className="project-image"
-                      style={{ backgroundImage: `url(${project.image})` }}
-                      whileHover={{ scale: 1.08 }}
-                      transition={{
-                        duration: 0.6,
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                      }}
-                    />
-                    <div className="project-overlay">
-                      <motion.span
-                        className="project-view-btn"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileHover={{ opacity: 1, y: 0 }}
+          {projects.map((project) => {
+            const imageStyle = project.image
+              ? { backgroundImage: `url(${project.image})` }
+              : {
+                  backgroundImage: project.gradient,
+                  backgroundColor: "#222228",
+                };
+
+            return (
+              <motion.article
+                key={project.id}
+                className={`project-card ${project.comingSoon ? "project-card-coming-soon" : ""}`}
+                variants={itemVariants}
+              >
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-link cursor-hover"
+                    data-cursor-text="VIEW"
+                  >
+                    <div className="project-image-wrapper">
+                      <motion.div
+                        className={`project-image ${!project.image ? "project-image-gradient" : ""}`}
+                        style={imageStyle}
+                        whileHover={{ scale: 1.06 }}
+                        transition={{
+                          duration: 0.7,
+                          ease: [0.25, 0.46, 0.45, 0.94],
+                        }}
                       >
-                        VIEW PROJECT
-                      </motion.span>
+                        {!project.image && project.monogram && (
+                          <span className="project-monogram">
+                            {project.monogram}
+                          </span>
+                        )}
+                      </motion.div>
+                      <div className="project-overlay">
+                        <motion.span
+                          className="project-view-btn"
+                          initial={{ opacity: 0, y: 20 }}
+                          whileHover={{ opacity: 1, y: 0 }}
+                        >
+                          VIEW PROJECT
+                        </motion.span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="project-info">
-                    <h3 className="project-title">{project.title}</h3>
-                    <p className="project-description">{project.description}</p>
-                    <div className="project-tags">
-                      {project.tags.map((tag, tagIndex) => (
-                        <span key={tagIndex} className="project-tag">
-                          {tag}
+                    <div className="project-info">
+                      <h3 className="project-title">{project.title}</h3>
+                      <p className="project-description">
+                        {project.description}
+                      </p>
+                      <div className="project-tags">
+                        {project.tags.map((tag, tagIndex) => (
+                          <span key={tagIndex} className="project-tag">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </a>
+                ) : (
+                  <div className="project-link project-link-disabled">
+                    <div className="project-image-wrapper">
+                      <div
+                        className={`project-image ${!project.image ? "project-image-gradient" : ""}`}
+                        style={imageStyle}
+                      >
+                        {!project.image && project.monogram && (
+                          <span className="project-monogram">
+                            {project.monogram}
+                          </span>
+                        )}
+                      </div>
+                      <div className="project-overlay project-overlay-coming-soon">
+                        <span className="project-coming-soon-badge">
+                          COMING SOON
                         </span>
-                      ))}
+                      </div>
+                    </div>
+                    <div className="project-info">
+                      <h3 className="project-title">{project.title}</h3>
+                      <p className="project-description">
+                        {project.description}
+                      </p>
+                      <div className="project-tags">
+                        {project.tags.map((tag, tagIndex) => (
+                          <span key={tagIndex} className="project-tag">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </a>
-              ) : (
-                <div className="project-link project-link-disabled">
-                  <div className="project-image-wrapper">
-                    <div
-                      className="project-image"
-                      style={{ backgroundImage: `url(${project.image})` }}
-                    />
-                    <div className="project-overlay project-overlay-coming-soon">
-                      <span className="project-coming-soon-badge">
-                        COMING SOON
-                      </span>
-                    </div>
-                  </div>
-                  <div className="project-info">
-                    <h3 className="project-title">{project.title}</h3>
-                    <p className="project-description">{project.description}</p>
-                    <div className="project-tags">
-                      {project.tags.map((tag, tagIndex) => (
-                        <span key={tagIndex} className="project-tag">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </motion.article>
-          ))}
+                )}
+              </motion.article>
+            );
+          })}
         </motion.div>
 
         {/* Bottom Note */}

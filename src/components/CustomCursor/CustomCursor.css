@@ -45,21 +45,16 @@
   }
 }
 
-/* Hide default cursor on desktop */
-@media (pointer: fine) {
-  * {
-    cursor: none !important;
-  }
+/* Custom cursor disabled — using native system cursor */
+.custom-cursor,
+.cursor-ring {
+  display: none !important;
 }
 
-/* Show default cursor on touch devices */
-@media (pointer: coarse) {
-  .custom-cursor,
-  .cursor-ring {
-    display: none !important;
-  }
-
-  * {
-    cursor: auto !important;
-  }
+/* Pointer affordance for interactive elements */
+a,
+button,
+.cursor-hover,
+[data-cursor-text] {
+  cursor: pointer;
 }

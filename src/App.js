@@ -5,7 +5,6 @@ import Projects from "./components/Projects/Projects";
 import About from "./components/About/About";
 import Skills from "./components/Skills/Skills";
 import Footer from "./components/Footer/Footer";
-import CustomCursor from "./components/CustomCursor/CustomCursor";
 import PageLoader from "./components/PageLoader/PageLoader";
 import "./App.css";
 
@@ -20,9 +19,6 @@ function App() {
     <div className="app">
       {/* Page Loader with Japanese Animation */}
       {isLoading && <PageLoader onComplete={handleLoadingComplete} />}
-
-      {/* Custom Cursor */}
-      <CustomCursor />
 
       {/* Film Grain Noise Overlay */}
       <div className="noise-overlay" aria-hidden="true" />

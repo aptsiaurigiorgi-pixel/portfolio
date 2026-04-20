@@ -7,6 +7,12 @@
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Smoother GPU-accelerated transitions baseline */
+.app * {
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Main content wrapper */

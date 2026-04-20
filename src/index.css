@@ -2,17 +2,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Noto+Serif+SC:wght@400;500;600;700&display=swap");
 
 :root {
-  /* Colors - Dark theme with cream/beige accents matching mason-wong.com */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #e8e4dc;
-  --bg-tertiary: #1a1a1a;
-  --text-primary: #f5f5f0;
-  --text-secondary: #1a1a1a;
-  --text-muted: #888888;
-  --accent: #b8a070;
-  --accent-light: #c9b080;
-  --border: rgba(245, 245, 240, 0.1);
-  --border-dark: rgba(26, 26, 26, 0.1);
+  /* Colors - Softer dark with warmer cream/beige accents */
+  --bg-primary: #17171c;
+  --bg-secondary: #efece4;
+  --bg-tertiary: #222228;
+  --text-primary: #faf7f0;
+  --text-secondary: #1f1f24;
+  --text-muted: #a4a199;
+  --accent: #d4b483;
+  --accent-light: #e2c79a;
+  --border: rgba(250, 247, 240, 0.14);
+  --border-dark: rgba(31, 31, 36, 0.12);
 
   /* Typography */
   --font-primary: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -26,10 +26,12 @@
   --container-padding: 40px;
   --container-padding-mobile: 20px;
 
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-medium: 0.4s ease;
-  --transition-slow: 0.6s ease;
+  /* Transitions - smoother cubic-bezier */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --transition-fast: 0.25s var(--ease-out-soft);
+  --transition-medium: 0.5s var(--ease-smooth);
+  --transition-slow: 0.8s var(--ease-smooth);
 
   /* Z-index layers */
   --z-nav: 1000;
@@ -71,7 +73,7 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: var(--z-noise);
-  opacity: 0.035;
+  opacity: 0.022;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   animation: noise 0.5s steps(10) infinite;
 }
