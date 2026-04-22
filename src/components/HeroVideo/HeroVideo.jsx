@@ -14,8 +14,7 @@ const HeroVideo = () => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mediaQuery.matches);
 
-    // Skip large video on small viewports or metered/slow networks
-    const isSmall = window.matchMedia("(max-width: 768px)").matches;
+    // Skip video only on metered/slow networks - mobile still gets video
     const conn =
       navigator.connection ||
       navigator.mozConnection ||
@@ -23,8 +22,8 @@ const HeroVideo = () => {
     const slow =
       conn &&
       (conn.saveData ||
-        ["slow-2g", "2g", "3g"].includes(conn.effectiveType));
-    if (isSmall || slow) setSkipVideo(true);
+        ["slow-2g", "2g"].includes(conn.effectiveType));
+    if (slow) setSkipVideo(true);
 
     const handleChange = (e) => {
       setPrefersReducedMotion(e.matches);
